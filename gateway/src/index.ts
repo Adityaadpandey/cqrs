@@ -39,7 +39,7 @@ app.use((req: Request, res: Response, next) => {
 });
 
 // Start server
-async function start() {
+export async function start() {
   try {
     server.listen(config.port, () => {
       console.log(`API Gateway running on http://localhost:${config.port}`);
@@ -63,5 +63,3 @@ function gracefulShutdown(signal: string) {
 
 process.on('SIGINT', gracefulShutdown('SIGINT'));
 process.on('SIGTERM', gracefulShutdown('SIGTERM'));
-
-start();

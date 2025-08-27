@@ -146,6 +146,12 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   quantity: 'quantity'
 };
 
+exports.Prisma.ProcessedEventScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  processedAt: 'processedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -161,7 +167,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Order: 'Order',
   Product: 'Product',
-  OrderItem: 'OrderItem'
+  OrderItem: 'OrderItem',
+  ProcessedEvent: 'ProcessedEvent'
 };
 
 /**

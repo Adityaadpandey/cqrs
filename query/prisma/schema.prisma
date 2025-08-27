@@ -52,3 +52,10 @@ model OrderItem {
   productId String
   quantity  Int
 }
+
+
+model ProcessedEvent {
+  id        String   @id @default(cuid()) @map("_id")
+  eventId   String   @unique
+  processedAt DateTime @default(now())
+}

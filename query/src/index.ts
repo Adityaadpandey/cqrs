@@ -3,7 +3,7 @@ import { createServer } from "http";
 import morgan from "morgan";
 
 import { config } from './config';
-import { startEventConsumer, stopEventConsumer } from './kafka/consumer';
+import { lastProcessedTimestamp, startEventConsumer, stopEventConsumer } from './kafka/consumer';
 import { orderRouter } from './routes/order.router';
 import { productRouter } from './routes/product.router';
 import { userRouter } from './routes/user.router';
@@ -19,9 +19,20 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
 
+app.get("/sync-status", (_, res) => {
+  res.status(200).json({
+    lastProcessedTimestamp,
+    isCaughtUp: lastProcessedTimestamp
+      ? new Date().getTime() - new Date(lastProcessedTimestamp).getTime() < 5000
+      : false,
+  });
+});
+
+
+
 const server = createServer(app);
 
-async function start() {
+export async function start() {
   try {
     await startEventConsumer();
     server.listen(PORT, () => {
@@ -53,6 +64,3 @@ function gracefulShutdown(signal: string) {
 // Listen to system signals for graceful shutdown
 process.on("SIGINT", gracefulShutdown("SIGINT"));
 process.on("SIGTERM", gracefulShutdown("SIGTERM"));
-
-// Start the app
-start();

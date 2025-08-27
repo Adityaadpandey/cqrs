@@ -2,21 +2,27 @@ import prisma from '@/config/db';
 
 export class orderEvent {
     async createOrder(data: any) {
+        if (!Array.isArray(data.orderItems)) {
+            console.error('Invalid orderItems in event data:', data);
+            return;
+        }
+
         const order = await prisma.order.create({
             data: {
                 id: data.id,
                 price: data.price,
                 user: {
-                    connect: { id: data.userId }
+                    connect: { id: data.userId },
                 },
                 orderItems: {
-                    create: data.items.map((item: { productId: string; quantity: number }) => ({
+                    create: data.orderItems.map((item: { productId: string; quantity: number }) => ({
                         productId: item.productId,
-                        quantity: item.quantity
-                    }))
-                }
-            }
+                        quantity: item.quantity,
+                    })),
+                },
+            },
         });
+
         return order;
     }
 }

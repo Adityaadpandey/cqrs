@@ -6,9 +6,10 @@ const router = Router();
 
 // create the product
 router.post("/", (req, res) => {
-    const { name, description, price } = req.body;
+    let { name, description, price } = req.body;
     if (!name || !price) {
-        return res.status(400).send("Name and price are required");
+        name = 'Unnamed Product';
+        price = 0;
     }
     prisma.product.create({
         data: { name, description, price }

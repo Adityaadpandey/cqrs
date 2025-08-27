@@ -25,7 +25,7 @@ app.get('/healthz', (_, res) => {
 });
 
 // Startup Function
-async function start() {
+export async function start() {
   try {
     await connectKafka();
 
@@ -58,6 +58,3 @@ function gracefulShutdown(signal: string) {
 // System Signal Listeners
 process.on('SIGINT', gracefulShutdown('SIGINT'));
 process.on('SIGTERM', gracefulShutdown('SIGTERM'));
-
-// Start the service
-start();
