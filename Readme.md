@@ -78,7 +78,7 @@ Client → Gateway → Mutation Service → PostgreSQL + Kafka → Query Service
 
 ```bash
 git clone https://github.com/Adityaadpandey/cqrs.git
-cd cqrs-kafka-microservices
+cd cqrs
 ````
 
 ### 2. Start the infrastructure
@@ -102,9 +102,9 @@ This will launch:
 For each service:
 
 ```bash
-cd gateway && npm install
-cd ../mutation && npm install
-cd ../query && npm install
+cd gateway && pnpm install
+cd ../mutation && pnpm install
+cd ../query && pnpm install
 ```
 
 ### 4. Run services
@@ -114,16 +114,16 @@ In separate terminals:
 ```bash
 # Gateway
 cd gateway
-npm run dev
+pnpm run dev
 
 # Mutation Service
 cd mutation
 npx prisma generate
-npm run dev
+pnpm run dev
 
 # Query Service
 cd query
-npm run dev
+pnpm run dev
 ```
 
 ### 5. Run E2E tests
@@ -132,8 +132,8 @@ After all services are up and running:
 
 ```bash
 cd e2e-tests
-npm install
-npm test
+pnpm install
+pnpm test
 ```
 
 ---
