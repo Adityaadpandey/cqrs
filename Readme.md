@@ -1,6 +1,3 @@
----
-
-```markdown
 # ⚡️ Event-Driven CQRS Microservices System
 
 A high-performance, distributed **CQRS (Command Query Responsibility Segregation)** system built with:
